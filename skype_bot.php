@@ -18,7 +18,8 @@ while ( 1 ){
     $votes = Skype::$bot->getVotes();
     if(isset($votes)){
         foreach( $votes as $chat=>$vot ){
-            if( $vot['time'] < ( time() - ( 10*60*60 ) ) ){
+            if( $vot['time'] < ( time() - ( 10*60 ) ) ){
+                echo "Clear: ". $chat,"\n";
                 Skype::$bot->clearVoting($chat);
             }
         }

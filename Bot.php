@@ -1,5 +1,6 @@
 <?php
 class Bot{
+    const CHAT_NAME = '#oleg.roshnivskyy/$aleksandr.subota;29cc0920f1150a6b';
     private $last_id;
     private $proxy;
     private $votes;
@@ -37,6 +38,10 @@ class Bot{
     }
 
     public function reply( $chat, $message, $id, $author ){
+//        echo $chat,"\n";
+        if($chat != self::CHAT_NAME){
+            return;
+        }
         $botReply = "[BOT]: ";
         $reply = '';
 
@@ -67,6 +72,7 @@ class Bot{
                 }
                 if ( count( $this->votes[$chat]["votes"] ) >= 4 ){
                     $reply = "Got a quorum, " . implode( " ", array_keys( $this->votes[$chat]["votes"] ) ) . " lets play a football!";
+                    $this->clearVoting($chat);
                 } else{
                     $reply .= ".\n Need " . ( 4 - count( $this->votes[$chat]["votes"] ) ) . " votes to make a quorum!";
                 }
